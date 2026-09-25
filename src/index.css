@@ -1,0 +1,60 @@
+/*
+ * Tailwind CSS v4: одна строка подключает всю библиотеку утилит.
+ * Ниже в блоке @theme мы расширяем тему — добавляем фирменные цвета
+ * и собственные анимации. Каждая переменная автоматически превращается
+ * в утилиту: --color-thunder-blue → bg-thunder-blue, text-thunder-blue и т.д.
+ */
+@import "tailwindcss";
+
+@theme {
+  /* Палитра OKC Thunder */
+  --color-thunder-blue: #007ac1;   /* основной синий */
+  --color-thunder-navy: #002d62;   /* тёмно-синий */
+  --color-thunder-orange: #ef3b24; /* «закатный» оранжевый */
+  --color-thunder-sun: #fdbb30;    /* жёлто-золотой акцент */
+  --color-dough: #f3d9a4;          /* цвет теста лепёшки */
+
+  --font-display: "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+
+  /* Кастомные анимации → классы animate-pop-in, animate-bounce-ball и т.д. */
+  --animate-pop-in: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-bounce-ball: bounce-ball 0.9s ease-in-out infinite;
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-draw-check: draw-check 0.6s 0.3s ease-out both;
+
+  @keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.6) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes bounce-ball {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+  @keyframes draw-check {
+    from { stroke-dashoffset: 48; }
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/* Уважаем системную настройку «уменьшить движение» */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
