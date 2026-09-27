@@ -26,6 +26,13 @@ export default function Header() {
           >
             Меню
           </a>
+          <a
+            href="#/photos"
+            className="rounded-full px-3 py-1.5 text-sm font-semibold text-white/80 ring-1 ring-white/30 transition-all
+              hover:bg-white/10 hover:text-thunder-sun sm:text-base"
+          >
+            Фото
+          </a>
           <button
             type="button"
             onClick={openCart}

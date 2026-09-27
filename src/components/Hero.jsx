@@ -1,22 +1,24 @@
 import TandirLogo from '../assets/TandirLogo.jsx'
 import Button from './ui/Button.jsx'
 import { useCart } from '../context/CartContext.jsx'
+import { usePhotos } from '../context/PhotosContext.jsx'
+import { HERO_IMAGE } from '../data/menu.js'
 
 /**
  * Hero — первый экран. Фон: градиент из фирменных цветов + фото-подложка.
  * Декоративная лепёшка-мяч «подпрыгивает» (animate-bounce-ball из index.css).
  */
-const HERO_BG =
-  'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=60'
-
 export default function Hero() {
   const { openCart } = useCart()
+  const { getPhoto } = usePhotos()
+  const heroSrc = getPhoto('hero', HERO_IMAGE) // замена из фото-редактора или исходное фото
 
   return (
     <section id="top" className="relative overflow-hidden bg-thunder-navy">
       {/* Фото-подложка; aria-hidden — это чистое оформление */}
       <img
-        src={HERO_BG}
+        key={heroSrc} // новый src → новый <img>, иначе после ошибки он остался бы скрытым
+        src={heroSrc}
         alt=""
         aria-hidden="true"
         // Если фото не загрузилось — просто прячем его, градиент останется

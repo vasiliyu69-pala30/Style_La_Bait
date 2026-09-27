@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext.jsx'
+import { usePhotos } from '../context/PhotosContext.jsx'
 import Button from './ui/Button.jsx'
 import { formatPrice } from './ui/formatPrice.js'
 import TandirLogo from '../assets/TandirLogo.jsx'
@@ -15,7 +16,11 @@ import TandirLogo from '../assets/TandirLogo.jsx'
  */
 export default function MenuItem({ item }) {
   const { items, addItem } = useCart()
-  const [imgFailed, setImgFailed] = useState(false)
+  const { getPhoto } = usePhotos()
+  const src = getPhoto(item.id, item.image) // фото из редактора или исходное
+  // Запоминаем, КАКАЯ ссылка не загрузилась: если фото заменят, запасной вариант уйдёт сам
+  const [failedSrc, setFailedSrc] = useState(null)
+  const imgFailed = failedSrc === src
   const [justAdded, setJustAdded] = useState(false)
 
   // Сколько штук этого блюда уже в корзине (для бейджа на кнопке)
@@ -41,10 +46,10 @@ export default function MenuItem({ item }) {
           </div>
         ) : (
           <img
-            src={item.image}
+            src={src}
             alt={item.name}
             loading="lazy"
-            onError={() => setImgFailed(true)}
+            onError={() => setFailedSrc(src)}
             className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
           />
         )}

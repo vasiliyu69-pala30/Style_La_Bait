@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useCart } from '../context/CartContext.jsx'
+import { usePhotos } from '../context/PhotosContext.jsx'
 import Button from './ui/Button.jsx'
 import { formatPrice } from './ui/formatPrice.js'
 
@@ -17,6 +18,7 @@ import { formatPrice } from './ui/formatPrice.js'
 export default function Cart({ onCheckout }) {
   const { items, totalCount, totalPrice, isOpen, closeCart, addItem, decrementItem, removeItem, clearCart } =
     useCart()
+  const { getPhoto } = usePhotos()
 
   // Закрытие по Escape — стандарт доступности для диалоговых окон
   useEffect(() => {
@@ -78,7 +80,8 @@ export default function Cart({ onCheckout }) {
               {items.map((item) => (
                 <li key={item.id} className="flex animate-fade-in items-center gap-3 py-4">
                   <img
-                    src={item.image}
+                    key={getPhoto(item.id, item.image)}
+                    src={getPhoto(item.id, item.image)}
                     alt=""
                     // Фото недоступно → подставляем логотип (один раз, чтобы не зациклиться)
                     onError={(e) => {

@@ -15,6 +15,9 @@
 // Хелпер: собирает URL Unsplash CDN с нужной шириной и обрезкой.
 const unsplash = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`
 
+/** Фон Hero-секции. Экспортируем отсюда, чтобы его видел и фото-редактор. */
+export const HERO_IMAGE = unsplash('1544025162-d76694265947').replace('w=800', 'w=1600')
+
 export const MENU = [
   {
     id: 'thunder-plov',
